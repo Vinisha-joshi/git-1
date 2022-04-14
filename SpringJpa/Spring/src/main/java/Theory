@@ -1,0 +1,38 @@
+@Data-->
+@Data is a convenient shortcut annotation that bundles the features of @ToString, @EqualsAndHashCode,
+@Getter / @Setter and @RequiredArgsConstructor together.
+-----------------------------------------------------------------------------------------------------
+
+@AllArgsConstructor-->
+@AllArgsConstructor generates a constructor with 1 parameter for each field in your class.
+-----------------------------------------------------------------------------------------------------
+
+@NoArgsConstructor-->
+@NoArgsConstructor will generate a constructor with no parameters.
+------------------------------------------------------------------------------------------------------
+
+@Builder
+------------------------------------------------------------------------------------------------------
+
+@SequenceGenerator
+A sequence generator may be specified on the entity class or on the primary key field or property. The
+scope of the generator name is global to the persistence unit (across all generator types).
+Required Element Summary
+String	name
+(Required) A unique generator name that can be referenced by one or more classes to be the generator for
+primary key values
+Optional Element Summary
+int	allocationSize
+          (Optional) The amount to increment by when allocating sequence numbers from the sequence.
+int	initialValue
+          (Optional) The value from which the sequence object is to start generating.
+String sequenceName
+          (Optional) The name of the database sequence object from which to obtain primary key values.
+-------------------------------------------------------------------------------------------------------
+
+@GeneratedValue
+If we want to automatically generate the primary key value, we can add the @GeneratedValue annotation.
+This can use four generation types: AUTO, IDENTITY, SEQUENCE and TABLE.
+If we don't explicitly specify a value, the generation type defaults to AUTO.
+-------------------------------------------------------------------------------------------------------
+
