@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <!--<bean class="Airtel" id="sim1">
+        <property name="phone" value="samsung"/> setter dependency injection
+         <property name="id" value="1"/>
+    </bean>-->
+    <!--//here Above lines means
+      Airtel sim1=new Airtel;
+      sim2.setPhone("samsung");-->
+    <!--<bean class="SpringFrameworkCore.Airtel" id="sim2">
+        <constructor-arg index="0" value="samsung"/>
+        <constructor-arg index="1" value="1"></constructor-arg>&lt;!&ndash;constructor dependency injection&ndash;&gt;
+    </bean>-->
+
+   <!-- <bean class="SpringFrameworkCore.Phones" id="phones"></bean>
+    <bean class="SpringFrameworkCore.Airtel" id="sim">
+        <property name="phone" value="samsung"/>
+        <property name="id" value="1"/>
+        <property name="phones" ref="phones"/>
+    </bean>
+    <bean class="SpringFrameworkCore.Vodaphone" id="sim2">
+        <property name="phones" ref="phones"/>
+    </bean>-->
+    <!--Here above we create single object and use it again by their id dont need to make diff object of
+    same class-->
+
+    <bean class="SpringFrameworkCore.Vodaphone" id="sim2"/>
+    <bean class="SpringFrameworkCore.Airtel" id="sim1"/>
+    <bean class="SpringFrameworkCore.Phones" id="phones">
+        <property name="sim" ref="sim1"></property>
+    </bean>
+
+
+</beans>

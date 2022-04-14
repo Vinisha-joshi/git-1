@@ -1,0 +1,141 @@
+ -->Spring
+     spring create and manage objects
+     for this you have to make a config class and mention all the classes that object for create
+     spring has its own container it doesn't depend upon on any third party
+     Ioc container read  objects of class
+     just use getBean method
+     we don't need to create object just write class name inside getBean method
+ -->Types of IOC container
+    1)BeanFactory
+    2)ApplicationContext
+    we will use ApplicationContext because it has more features and also provides advance features.
+    Both are Interfaces
+    ClassPathXmlApplicationContext is class which implements ApplicationContext.
+-->Bean
+    Bean is the object that spring controller manages
+-->Dependency Injection
+   1)Using Setter Injection
+   2)Using Constructor Injection
+   Example-->int i,String name (Dependencies in form of literals)
+             Airtel air (Dependencies in form of objective)
+             ArrayList<Integer> list (Dependencies in form of Collections)
+   Dependency injection means don't write hard code just inject through setter or constructor
+   For setter injection we use property and for constructor use constructor-args
+-->Autowiring
+<!-- <bean id="heartObject" class="Autowired.Heart"></bean>
+    <bean id="human" class="Autowired.Human">
+        <property name="heart" ref="heartObject"></property>
+    </bean>-->
+
+    <!-- <bean id="heart" class="Autowired.Heart"></bean>
+    <bean id="human" class="Autowired.Human" auto-wire="byName"></bean>-->
+    <!--Above we need to make id and dependency name same, so it recognises by name
+    here we don't need to put property internally it looks like
+    Human human =new Human()
+    human.setHeart(new Heart())
+    One disadvantage is for create autowired we have make both name same, so we use ByType
+    because Class type and dependency type are same-->
+
+    <!--<bean id="heartObject" class="Autowired.Heart"></bean>
+    <bean id="human" class="Autowired.Human" autowire="byType"></bean>-->
+    <!--Internally
+    Human human=new Human()
+    Heart heartObject=new Heart()
+    human.setHeart(heartObject)-->
+
+    <!--<bean id="heartObject" class="Autowired.Heart"></bean>
+    <bean id="human" class="Autowired.Human" auto-wire="constructor"></bean>-->
+    <!--Above for constructor-->
+    <context:annotation-config/>
+    <bean id="heartObject" class="Autowired.Heart"></bean>
+    <bean id="human" class="Autowired.Human"></bean>
+
+-->How @Autowired work
+    First it try to resolve byType
+    If byType fails then try with byName
+     <bean id="heartObject" class="Autowired.Heart"></bean>
+        <bean id="heartObject1" class="Autowired.Heart"></bean>
+        So above example there is more than one implementation for object of same class so it's not able to resolve byType
+        So it is trying to match with byName and both fail so we have @Qualifier
+        <bean id="heart" class="Autowired.Heart"></bean>//it will run because heart(byName) match
+        <bean id="heartObject1" class="Autowired.Heart"></bean>
+##Autowiring is only for objects not for data types for these we have properties
+--> @Qualifier
+    For multiple implementation we use qualifier
+
+-->Injecting literals through properties files
+     <context:property-placeholder location="classpath:student-info.properties"></context:property-placeholder>
+        <bean id="student" class="Autowired.Student">
+            <!--<property name="name" value="vinisha"></property>
+            <property name="hobby" value="singing"></property>
+            <property name="coarse" value="IT"></property>-->
+            //through properties literals
+            <property name="name" value="${student.name}"></property>
+            <property name="hobby" value="${student.hobby}"></property>
+            <property name="coarse" value="${student.coarse}"></property>
+        </bean>
+--> @Required
+    property required for particular literals
+
+ ------>Without XML file<------------------
+ -->@Component("id")//just like that(<bean id="" class="">)
+ //create object and does the same thing as ioc
+
+
+ -----------------------------------------------------------------------------------------------------------
+
+
+ --------All Annotations------------------------------------
+ 1) @SpringBootApplication contains,
+
+ 1. EnableAutoConfiguration
+ 2. ComponentScan
+ 3. Configuration
+
+ 2) Stereotype Annotation
+    creates spring bean automatically in the application context by using any of this annotation
+    on top of your spring bean then spring will scan that bean and manage it's lifecycle
+
+ 1. @Component  -- parent annotation
+ all of the below are derived from @Component
+ 2. @Service   -- for business logic
+ 3. @RestController / Controller -- for REST API logic
+ 4. @Repository -- for DB logic
+
+
+ 3) @Configuration
+
+ 4) @Bean
+    to use java based configuration and not xml based or annotation based
+    that is, class can be used by spring IOC container as a source of bean definition
+
+ 5) @Autowired
+
+ 6) @Qualifier
+
+ 7) @Primary
+
+ 8) @Lazy
+    By default, Spring Bean are eager loading(If you define bean in your application then spring
+    IOC will by default create it's object whether you are using that object or not)
+    @Lazy will tell the spring to create or load the bean on demand only otherwise don't create
+
+ 9) @Value
+    get value from another file or custom value
+    if using application.properties file then it will be loaded by spring
+    and if using custom file like student-info.properties then use
+
+ 10) @PropertySource("classpath:student-info.properties")
+
+ 11) @ConfigurationProperties
+     to not use @value annotation individually on each property to get the values from student-info.properties
+     use @ConfigurationProperties(prefix = "student") over class
+
+ 12) @Profile
+     to use application properties file what you want
+
+ 13) @Scope -- written over the bean
+     @Scope("singleton") --> will create single object for a context
+     @Scope("prototype") --> will create different object whenever required
+     @Scope("session")
+     @Scope("")
